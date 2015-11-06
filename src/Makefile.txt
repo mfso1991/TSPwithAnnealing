@@ -1,0 +1,43 @@
+objects = main3d.o Path.o Country.o CrossOverMap.o City.o Population.o random.o common.o
+
+all: genalg sim_anneal
+
+sim_anneal: tsp.o main3a.o
+	g++ -o sim_anneal tsp.o main3a.o
+
+genalg: $(objects)
+	g++ -g -o genalg main3d.o Path.o Country.o CrossOverMap.o Population.o random.o City.o common.o
+
+main3d.o: main3d.cpp defs.h randomc.h
+	g++ -c -Wall main3d.cpp
+
+Path.o: Path.cpp Path.h defs.h
+	g++ -c -Wall Path.cpp
+
+Country.o: Country.cpp Country.h defs.h
+	g++ -c -Wall Country.cpp
+
+CrossOverMap.o: CrossOverMap.cpp CrossOverMap.h defs.h
+	g++ -c -Wall CrossOverMap.cpp
+
+Population.o: Population.cpp Population.h defs.h
+	g++ -c -Wall Population.cpp
+
+random.o: random.cpp randomc.h
+	g++ -c -Wall random.cpp
+
+common.o: common.h common.cpp
+	g++ -c -Wall common.cpp
+
+
+City.o:	City.cpp City.h defs.h
+	g++ -c -Wall City.cpp
+
+clean: 
+	-rm *.o core sim_anneal genalg
+
+tsp.o   : tsp.c tsp.h
+	g++ -c -Wall tsp.c
+
+main3a.o        : main3a.c tsp.h
+	g++ -c -Wall main3a.c
